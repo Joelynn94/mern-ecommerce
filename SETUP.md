@@ -62,6 +62,7 @@ export default App
 ## React Bootswatch
 
 1. Add CDN for FontAwesome to the **index.html** file
+1. Create **images** folder (inside the **public** folder) and add files as needed
 1. Download the bootstrap.min.css file
 1. Move that file into the **frontend** folder and then into the **src** folder
 1. Import the bootstrap.min.css into the index.js file
@@ -72,7 +73,9 @@ export default App
 import { Container } from 'react-bootstrap'
 ```
 
-### Basic Footer component
+# Create the basic components
+
+### Footer component
 
 ```javascript
 import React from 'react'
@@ -93,7 +96,7 @@ const Footer = () => {
 export default Footer
 ```
 
-### Basic Header Navigation component
+### Header Navigation component
 
 ```javascript
 import React from 'react'
@@ -123,4 +126,93 @@ const Header = () => {
 }
 
 export default Header
+```
+
+### Product component
+
+```javascript
+import React from 'react'
+import { Card } from 'react-bootstrap'
+
+const Product = ({ product }) => {
+  return (
+    <Card className='my-3 p-3 rounded'>
+      <a href={`/product/${product._id}`}>
+        <Card.Img src={product.image} variant='top' />
+      </a>
+
+      <Card.Body>
+        <a href={`/product/${product._id}`}>
+          <Card.Title as='div'>
+            <strong>{product.name}</strong>
+          </Card.Title>
+        </a>
+
+        <Card.Text>
+          <div className='my-3'>
+            {product.rating} from {product.numReviews} reviews
+          </div>
+        </Card.Text>
+
+        <Card.Text as='h3'>${product.price}</Card.Text>
+      </Card.Body>
+    </Card>
+  )
+}
+
+export default Product
+```
+
+### HomeScreen component
+
+```javascript
+import React from 'react'
+import { Row, Col } from 'react-bootstrap'
+import Product from '../components/Product'
+import products from '../products'
+
+const HomeScreen = () => {
+  return (
+    <>
+      <h1>Lastest Products</h1>
+      <Row>
+        {products.map((product) => (
+          <Col sm={12} md={6} lg={4} xl={3}>
+            <Product product={product} />
+          </Col>
+        ))}
+      </Row>
+    </>
+  )
+}
+
+export default HomeScreen
+```
+
+### Main app component
+
+1. After creating these components, make sure everything is imported in the right places and everything is working as expected
+
+```javascript
+import React from 'react'
+import { Container } from 'react-bootstrap'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import HomeScreen from './screens/HomeScreen'
+
+function App() {
+  return (
+    <>
+      <Header />
+      <main className='py-3'>
+        <Container>
+          <HomeScreen />
+        </Container>
+      </main>
+      <Footer />
+    </>
+  )
+}
+
+export default App
 ```
