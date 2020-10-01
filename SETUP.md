@@ -77,6 +77,8 @@ import { Container } from 'react-bootstrap'
 
 ### Footer component
 
+1. Create a basic footer component layout and styling
+
 ```javascript
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
@@ -97,6 +99,8 @@ export default Footer
 ```
 
 ### Header Navigation component
+
+1. Create a basic navigation inside the header component with styling
 
 ```javascript
 import React from 'react'
@@ -129,6 +133,8 @@ export default Header
 ```
 
 ### Product component
+
+1. Create a product component layout and styling, loop through each product in the component
 
 ```javascript
 import React from 'react'
@@ -164,6 +170,8 @@ export default Product
 ```
 
 ### HomeScreen component
+
+1. Create a homescreen component to display all of the products
 
 ```javascript
 import React from 'react'
