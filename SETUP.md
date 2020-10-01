@@ -134,7 +134,8 @@ export default Header
 
 ### Product component
 
-1. Create a product component layout and styling, loop through each product in the component
+1. Create a product component layout and styling
+1. Import the props needed for the component
 
 ```javascript
 import React from 'react'
@@ -172,6 +173,8 @@ export default Product
 ### HomeScreen component
 
 1. Create a homescreen component to display all of the products
+1. Loop over each product using the .map higher order function
+1. Make sure to add a key prop to the map function
 
 ```javascript
 import React from 'react'
@@ -185,7 +188,7 @@ const HomeScreen = () => {
       <h1>Lastest Products</h1>
       <Row>
         {products.map((product) => (
-          <Col sm={12} md={6} lg={4} xl={3}>
+          <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
             <Product product={product} />
           </Col>
         ))}
@@ -223,4 +226,120 @@ function App() {
 }
 
 export default App
+```
+
+### Rating component
+
+1. Create the rating component
+1. Import the props needed for the component
+1. Create 5 spans to show 5 stars
+1. Using the ternary operator, this will display different icons for the different values of the **value** prop
+1. Add a default color to the **color** prop
+1. Add proptypes to help with type checking
+
+```javascript
+import React from 'react'
+import PropTypes from 'prop-types'
+
+const Rating = ({ value, text, color }) => {
+  return (
+    <div className='rating'>
+      <span>
+        <i
+          style={{ color }}
+          className={
+            value >= 1
+              ? 'fas fa-star'
+              : value >= 0.5
+              ? 'fas fa-star-half-alt'
+              : 'far fa-star'
+          }
+        ></i>
+      </span>
+      <span>
+        <i
+          style={{ color }}
+          className={
+            value >= 2
+              ? 'fas fa-star'
+              : value >= 1.5
+              ? 'fas fa-star-half-alt'
+              : 'far fa-star'
+          }
+        ></i>
+      </span>
+      <span>
+        <i
+          style={{ color }}
+          className={
+            value >= 3
+              ? 'fas fa-star'
+              : value >= 2.5
+              ? 'fas fa-star-half-alt'
+              : 'far fa-star'
+          }
+        ></i>
+      </span>
+      <span>
+        <i
+          style={{ color }}
+          className={
+            value >= 4
+              ? 'fas fa-star'
+              : value >= 3.5
+              ? 'fas fa-star-half-alt'
+              : 'far fa-star'
+          }
+        ></i>
+      </span>
+      <span>
+        <i
+          style={{ color }}
+          className={
+            value >= 5
+              ? 'fas fa-star'
+              : value >= 4.5
+              ? 'fas fa-star-half-alt'
+              : 'far fa-star'
+          }
+        ></i>
+      </span>
+      <span className='ml-1'>{text ? text : ''}</span>
+    </div>
+  )
+}
+
+Rating.defaultProps = {
+  color: '#f8e825',
+}
+
+Rating.propTypes = {
+  value: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+  color: PropTypes.string,
+}
+
+export default Rating
+```
+
+### Update Product component
+
+1. Update the product component to include the rating component instead of the hard coded ratings
+
+```javascript
+// original card text
+;<Card.Text>
+  <div className='my-3'>
+    {product.rating} from {product.numReviews} reviews
+  </div>
+</Card.Text>
+
+// NEW
+// import the rating component
+import Rating from '../components/Rating '
+
+// add the rating component
+;<Card.Text>
+  <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+</Card.Text>
 ```
