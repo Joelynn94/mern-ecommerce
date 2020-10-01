@@ -343,3 +343,222 @@ import Rating from '../components/Rating '
   <Rating value={product.rating} text={`${product.numReviews} reviews`} />
 </Card.Text>
 ```
+
+## Creating React Routing
+
+1. CD into the **frontend** folder
+1. RUN npm install react-router-dom react-router-bootstrap
+1. Add the router to the **app.js** file
+
+```javascript
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import HomeScreen from './screens/HomeScreen'
+
+function App() {
+  return (
+    <Router>
+      <Header />
+      <main className='py-3'>
+        <Container>
+          <Route exact path='/' component={HomeScreen} />
+        </Container>
+      </main>
+      <Footer />
+    </Router>
+  )
+}
+
+export default App
+```
+
+### Update Product component
+
+1. Update the product component to use Link instead of a tags
+
+```javascript
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Card } from 'react-bootstrap'
+import Rating from './Rating'
+
+const Product = ({ product }) => {
+  return (
+    <Card className='my-3 p-3 rounded'>
+      // wrap links with the Link component - using the to=""
+      <Link to={`/product/${product._id}`}>
+        <Card.Img src={product.image} variant='top' />
+      </Link>
+      <Card.Body>
+        // wrap links with the Link component - using the to=""
+        <Link to={`/product/${product._id}`}>
+          <Card.Title as='div'>
+            <strong>{product.name}</strong>
+          </Card.Title>
+        </Link>
+        <Card.Text>
+          <Rating
+            value={product.rating}
+            text={`${product.numReviews} reviews`}
+          />
+        </Card.Text>
+        <Card.Text as='h3'>${product.price}</Card.Text>
+      </Card.Body>
+    </Card>
+  )
+}
+
+export default Product
+```
+
+### Update Header component
+
+1. Update the header component to use LinkContainer instead of a tags
+
+```javascript
+import React from 'react'
+import { LinkContainer } from 'react-router-bootstrap'
+import { Navbar, Nav, Container } from 'react-bootstrap'
+
+const Header = () => {
+  return (
+    <header>
+      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+        <Container>
+          // wrap links with the LinkContainer component using the to=""
+          <LinkContainer to='/'>
+            <Navbar.Brand>ProShop</Navbar.Brand>
+          </LinkContainer>
+          <Navbar.Toggle aria-controls='basic-navbar-nav' />
+          <Navbar.Collapse id='basic-navbar-nav'>
+            <Nav className='ml-auto'>
+              // wrap links with the LinkContainer component using the to=""
+              <LinkContainer to='/cart'>
+                <Nav.Link className='fas fa-shopping-cart'>Cart</Nav.Link>
+              </LinkContainer>
+              // wrap links with the LinkContainer component using the to=""
+              <LinkContainer to='/login'>
+                <Nav.Link className='fas fa-user'>Sign In</Nav.Link>
+              </LinkContainer>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </header>
+  )
+}
+
+export default Header
+```
+
+### Update Main App component
+
+1. Create a second view for the products details
+
+```javascript
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import HomeScreen from './screens/HomeScreen'
+import ProductScreen from './screens/ProductScreen'
+
+function App() {
+  return (
+    <Router>
+      <Header />
+      <main className='py-3'>
+        <Container>
+          <Route exact path='/' component={HomeScreen} />
+          <Route path='/product/:id' component={ProductScreen} />
+        </Container>
+      </main>
+      <Footer />
+    </Router>
+  )
+}
+
+export default App
+```
+
+### Create Product Details component
+
+1. Create a second view for product details
+1. Using a simple json file to start, use the **match** prop to match the url parameters
+
+```javascript
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
+import Rating from '../components/Rating'
+import products from '../products'
+
+const ProductScreen = ({ match }) => {
+  const product = products.find((p) => p._id === match.params.id)
+
+  return (
+    <>
+      <Link className='btn btn-light my-3' to='/'>
+        Go Back
+      </Link>
+      <Row>
+        <Col md={6}>
+          <Image src={product.image} alt={product.name} fluid />
+        </Col>
+        <Col md={3}>
+          <ListGroup variant='flush'>
+            <ListGroup.Item>
+              <h3>{product.name}</h3>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Rating
+                value={product.rating}
+                text={`${product.numReviews} reviews`}
+              />
+            </ListGroup.Item>
+            <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+            <ListGroup.Item>Price: ${product.description}</ListGroup.Item>
+          </ListGroup>
+        </Col>
+        <Col md={3}>
+          <Card>
+            <ListGroup>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Price:</Col>
+                  <Col>
+                    <strong>${product.price}</strong>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Status:</Col>
+                  <Col>
+                    {product.countInStock > 0 ? 'In Stock' : 'Out of Sock'}
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button
+                  className='btn-block'
+                  type='button'
+                  disabled={product.countInStock === 0}
+                >
+                  Add to cart
+                </Button>
+              </ListGroup.Item>
+            </ListGroup>
+          </Card>
+        </Col>
+      </Row>
+    </>
+  )
+}
+
+export default ProductScreen
+```
