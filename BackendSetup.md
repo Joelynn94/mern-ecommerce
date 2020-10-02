@@ -477,7 +477,7 @@ export default products
 
 ```javascript
 // import bcrypt
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 const users = [
   {
