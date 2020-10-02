@@ -145,3 +145,39 @@ app.listen(
   )
 )
 ```
+
+### Setup database
+
+1. RUN npm i mongoose
+1. Add **config** folder
+1. Create **db.js** file
+1. Add necessary DB connection code in the **db.js** file
+
+```javascript
+import mongoose from 'mongoose'
+
+const connectDB = async () => {
+  try {
+    const connect = await mongoose.connect(process.env.MONGO_URI, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useCreateIndex: true,
+    })
+
+    console.log(`MongoDB connected: ${connect.connection.host}`)
+  } catch (error) {
+    console.log(`Error: ${error.message}`)
+    process.exit(1)
+  }
+}
+
+export default connectDB
+```
+
+1. add the connection to the **server.js** file
+
+```javascript
+import connectDB from './config/db.js'
+
+connectDB()
+```
