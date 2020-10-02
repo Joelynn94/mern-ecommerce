@@ -62,4 +62,86 @@ app.listen(5000, console.log('Server is running on port 5000'))
   },
 ```
 
-1. RUN npm run dev to run both servers
+1. RUN npm run dev to run both servers to make sure everything is working
+1. Create a .env file in the root directory
+
+### Environment variables
+
+1. RUN npm i dotenv
+
+```javascript
+const express = require('express')
+// add dotenv
+const dotenv = require('dotenv')
+const products = require('./data/products')
+
+// add config
+dotenv.config()
+
+const app = express()
+
+app.get('/', (req, res) => {
+  res.send('API is running...')
+})
+
+app.get('/api/products', (req, res) => {
+  res.json(products)
+})
+
+app.get('/api/products/:id', (req, res) => {
+  const product = products.find((p) => p._id === req.params.id)
+  res.json(product)
+})
+
+// adding the PORT variable
+const PORT = process.env.PORT || 5000
+
+app.listen(
+  PORT,
+  console.log(
+    `Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`
+  )
+)
+```
+
+### Setup ES modules
+
+1. Add the type to the root **package.json** file
+
+```javascript
+  "type": "module",
+```
+
+1. Update the **server.js** file using imports
+
+```javascript
+import express from 'express'
+import dotenv from 'dotenv'
+import products from './data/products.js'
+
+dotenv.config()
+
+const app = express()
+
+app.get('/', (req, res) => {
+  res.send('API is running...')
+})
+
+app.get('/api/products', (req, res) => {
+  res.json(products)
+})
+
+app.get('/api/products/:id', (req, res) => {
+  const product = products.find((p) => p._id === req.params.id)
+  res.json(product)
+})
+
+const PORT = process.env.PORT || 5000
+
+app.listen(
+  PORT,
+  console.log(
+    `Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`
+  )
+)
+```
