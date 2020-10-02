@@ -562,3 +562,152 @@ const ProductScreen = ({ match }) => {
 
 export default ProductScreen
 ```
+
+# After basic server was created
+
+1. RUN npm i axios
+1. RUN npm start
+1. Add a proxy to the **package.json** file to avoid a CORS error
+
+```javascript
+  "proxy": "http://127.0.0.1:5000",
+```
+
+1. Remove the products import both HomeScreen component & ProductScreen
+1. Add axios import
+1. Add useState and useEffect imports
+
+```javascript
+import React, { useState, useEffect } from 'react'
+import products from '../products'
+import axios from 'axios'
+```
+
+### HomeScreen component changes
+
+```javascript
+// bring in useState and useEffect
+import React, { useState, useEffect } from 'react'
+import { Row, Col } from 'react-bootstrap'
+import Product from '../components/Product'
+// import axios
+import axios from 'axios'
+
+const HomeScreen = () => {
+  // set products state
+  const [products, setProducts] = useState([])
+
+  // getting the data from the server using useEffect hook
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get('/api/products')
+
+      setProducts(data)
+    }
+    fetchProducts()
+  }, [])
+
+  return (
+    <>
+      <h1>Lastest Products</h1>
+      <Row>
+        {products.map((product) => (
+          <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+            <Product product={product} />
+          </Col>
+        ))}
+      </Row>
+    </>
+  )
+}
+
+export default HomeScreen
+```
+
+### ProductScreen component changes
+
+```javascript
+// bring in useState and useEffect
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
+import Rating from '../components/Rating'
+// import axios
+import axios from 'axios'
+
+const ProductScreen = ({ match }) => {
+  // set individual product state
+  const [product, setProduct] = useState({})
+
+  // getting the data from the server using useEffect hook
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/products/${match.params.id}`)
+
+      setProduct(data)
+    }
+    fetchProduct()
+  }, [])
+
+  return (
+    <>
+      <Link className='btn btn-light my-3' to='/'>
+        Go Back
+      </Link>
+      <Row>
+        <Col md={6}>
+          <Image src={product.image} alt={product.name} fluid />
+        </Col>
+        <Col md={3}>
+          <ListGroup variant='flush'>
+            <ListGroup.Item>
+              <h3>{product.name}</h3>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Rating
+                value={product.rating}
+                text={`${product.numReviews} reviews`}
+              />
+            </ListGroup.Item>
+            <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+            <ListGroup.Item>Price: ${product.description}</ListGroup.Item>
+          </ListGroup>
+        </Col>
+        <Col md={3}>
+          <Card>
+            <ListGroup>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Price:</Col>
+                  <Col>
+                    <strong>${product.price}</strong>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Status:</Col>
+                  <Col>
+                    {product.countInStock > 0 ? 'In Stock' : 'Out of Sock'}
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button
+                  className='btn-block'
+                  type='button'
+                  disabled={product.countInStock === 0}
+                >
+                  Add to cart
+                </Button>
+              </ListGroup.Item>
+            </ListGroup>
+          </Card>
+        </Col>
+      </Row>
+    </>
+  )
+}
+
+export default ProductScreen
+```
