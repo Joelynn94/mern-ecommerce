@@ -1,2 +1,3 @@
 # mern-ecommerce
-MERN eCommerce app 
+#MERN eCommerce app 
+#An amazing project everyone should try:-)
