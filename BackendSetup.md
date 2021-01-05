@@ -26,25 +26,25 @@ Modules - the **require** syntax is commonJS (traditionally what Node.js used). 
 ### Server file
 
 ```javascript
-const express = require('express')
-const products = require('./data/products')
+const express = require('express');
+const products = require('./data/products');
 
-const app = express()
+const app = express();
 
 app.get('/', (req, res) => {
-  res.send('API is running...')
-})
+  res.send('API is running...');
+});
 
 app.get('/api/products', (req, res) => {
-  res.json(products)
-})
+  res.json(products);
+});
 
 app.get('/api/products/:id', (req, res) => {
-  const product = products.find((p) => p._id === req.params.id)
-  res.json(product)
-})
+  const product = products.find((p) => p._id === req.params.id);
+  res.json(product);
+});
 
-app.listen(5000, console.log('Server is running on port 5000'))
+app.listen(5000, console.log('Server is running on port 5000'));
 ```
 
 ## Efficient setup
@@ -70,38 +70,38 @@ app.listen(5000, console.log('Server is running on port 5000'))
 1. RUN npm i dotenv
 
 ```javascript
-const express = require('express')
+const express = require('express');
 // add dotenv
-const dotenv = require('dotenv')
-const products = require('./data/products')
+const dotenv = require('dotenv');
+const products = require('./data/products');
 
 // add config
-dotenv.config()
+dotenv.config();
 
-const app = express()
+const app = express();
 
 app.get('/', (req, res) => {
-  res.send('API is running...')
-})
+  res.send('API is running...');
+});
 
 app.get('/api/products', (req, res) => {
-  res.json(products)
-})
+  res.json(products);
+});
 
 app.get('/api/products/:id', (req, res) => {
-  const product = products.find((p) => p._id === req.params.id)
-  res.json(product)
-})
+  const product = products.find((p) => p._id === req.params.id);
+  res.json(product);
+});
 
 // adding the PORT variable
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 
 app.listen(
   PORT,
   console.log(
     `Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`
   )
-)
+);
 ```
 
 ### Setup ES modules
@@ -115,35 +115,35 @@ app.listen(
 1. Update the **server.js** file using imports
 
 ```javascript
-import express from 'express'
-import dotenv from 'dotenv'
-import products from './data/products.js'
+import express from 'express';
+import dotenv from 'dotenv';
+import products from './data/products.js';
 
-dotenv.config()
+dotenv.config();
 
-const app = express()
+const app = express();
 
 app.get('/', (req, res) => {
-  res.send('API is running...')
-})
+  res.send('API is running...');
+});
 
 app.get('/api/products', (req, res) => {
-  res.json(products)
-})
+  res.json(products);
+});
 
 app.get('/api/products/:id', (req, res) => {
-  const product = products.find((p) => p._id === req.params.id)
-  res.json(product)
-})
+  const product = products.find((p) => p._id === req.params.id);
+  res.json(product);
+});
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 
 app.listen(
   PORT,
   console.log(
     `Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`
   )
-)
+);
 ```
 
 ### Setup database
@@ -154,7 +154,7 @@ app.listen(
 1. Add necessary DB connection code in the **db.js** file
 
 ```javascript
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
@@ -162,24 +162,24 @@ const connectDB = async () => {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,
-    })
+    });
 
-    console.log(`MongoDB connected: ${connect.connection.host}`)
+    console.log(`MongoDB connected: ${connect.connection.host}`);
   } catch (error) {
-    console.log(`Error: ${error.message}`)
-    process.exit(1)
+    console.log(`Error: ${error.message}`);
+    process.exit(1);
   }
-}
+};
 
-export default connectDB
+export default connectDB;
 ```
 
 1. add the connection to the **server.js** file
 
 ```javascript
-import connectDB from './config/db.js'
+import connectDB from './config/db.js';
 
-connectDB()
+connectDB();
 ```
 
 # Create the database models
@@ -188,7 +188,7 @@ connectDB()
 
 ```javascript
 // USER MODEL
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema(
   {
@@ -214,16 +214,16 @@ const userSchema = mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema);
 
-export default User
+export default User;
 ```
 
 ```javascript
 // PRODUCT MODEL
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const reviewSchema = mongoose.Schema(
   {
@@ -243,7 +243,7 @@ const reviewSchema = mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 
 const productSchema = mongoose.Schema(
   {
@@ -298,16 +298,16 @@ const productSchema = mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const Product = mongoose.model('Product', productSchema)
+const Product = mongoose.model('Product', productSchema);
 
-export default Product
+export default Product;
 ```
 
 ```javascript
 // ORDER MODEL
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const orderSchema = mongoose.Schema(
   {
@@ -380,11 +380,11 @@ const orderSchema = mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const Order = mongoose.model('Order', orderSchema)
+const Order = mongoose.model('Order', orderSchema);
 
-export default Order
+export default Order;
 ```
 
 ### Using dummy data and add bcryptjs
@@ -466,9 +466,9 @@ const products = [
     rating: 4,
     numReviews: 12,
   },
-]
+];
 
-export default products
+export default products;
 ```
 
 1. Create a new file **users.js** inside the data folder
@@ -477,7 +477,7 @@ export default products
 
 ```javascript
 // import bcrypt
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs';
 
 const users = [
   {
@@ -496,7 +496,90 @@ const users = [
     email: 'Jane@example.com',
     password: bcrypt.hashSync('123456', 10),
   },
-]
+];
 
-export default users
+export default users;
+```
+
+### Add dummy data to database
+
+1. Create 2 scripts to import sample data into the database
+
+```javascript
+  "scripts": {
+    "data:import": "node backend/seeder",
+    "data:destroy": "node backend/seeder -d"
+  }
+```
+
+2. Run the import command in the terminal
+
+### Setup basic routes
+
+1. In the routes/productRoutes.js folder
+
+```javascript
+import express from 'express';
+import asyncHandler from 'express-async-handler';
+const router = express.Router();
+
+import Product from '../models/productModel.js';
+
+// desc@    Fetch all products
+// @route   GET /api/products
+// @access  Public
+router.get(
+  '/',
+  asyncHandler(async (req, res) => {
+    // using an empty object will give us all products
+    const products = await Product.find({});
+
+    res.json(products);
+  })
+);
+
+// desc@    Fetch single product
+// @route   GET /api/products/:id
+// @access  Public
+router.get(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    // find a product by id
+    const product = await Product.findById(req.params.id);
+
+    // check if the product exists
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404);
+      // we can use this because we setup a custom error handler
+      throw new Error('Product not found');
+    }
+  })
+);
+
+export default router;
+```
+
+### Setup custom error handling middleware
+
+1. In the middleware/errorMiddle.js file
+
+```javascript
+const notFound = (req, res, next) => {
+  const error = new Error(`Not Found - ${req.originalUrl}`);
+  res.status(404);
+  next(error);
+};
+
+const errorHandler = (err, req, res, next) => {
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  res.status(statusCode);
+  res.json({
+    message: err.message,
+    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+  });
+};
+
+export { notFound, errorHandler };
 ```
