@@ -13,17 +13,17 @@
 1. Change the App.js file to look like this to start:
 
 ```javascript
-import React from 'react'
+import React from 'react';
 
 function App() {
   return (
     <>
       <h1>Welcome to ProShop</h1>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
 ```
 
 1. Remove index.css styling
@@ -40,9 +40,9 @@ export default App
 1. Go to App.js file to import the new components, the file will not look like this:
 
 ```javascript
-import React from 'react'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import React from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -53,10 +53,10 @@ function App() {
       </main>
       <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
 ```
 
 ## React Bootswatch
@@ -70,7 +70,7 @@ export default App
 1. Import the components you need from react bootstrap in each file
 
 ```javascript
-import { Container } from 'react-bootstrap'
+import { Container } from 'react-bootstrap';
 ```
 
 # Create the basic components
@@ -80,8 +80,8 @@ import { Container } from 'react-bootstrap'
 1. Create a basic footer component layout and styling
 
 ```javascript
-import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Footer = () => {
   return (
@@ -92,10 +92,10 @@ const Footer = () => {
         </Row>
       </Container>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
 ```
 
 ### Header Navigation component
@@ -103,8 +103,8 @@ export default Footer
 1. Create a basic navigation inside the header component with styling
 
 ```javascript
-import React from 'react'
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import React from 'react';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 
 const Header = () => {
   return (
@@ -126,10 +126,10 @@ const Header = () => {
         </Container>
       </Navbar>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
 ```
 
 ### Product component
@@ -138,8 +138,8 @@ export default Header
 1. Import the props needed for the component
 
 ```javascript
-import React from 'react'
-import { Card } from 'react-bootstrap'
+import React from 'react';
+import { Card } from 'react-bootstrap';
 
 const Product = ({ product }) => {
   return (
@@ -164,10 +164,10 @@ const Product = ({ product }) => {
         <Card.Text as='h3'>${product.price}</Card.Text>
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;
 ```
 
 ### HomeScreen component
@@ -177,10 +177,10 @@ export default Product
 1. Make sure to add a key prop to the map function
 
 ```javascript
-import React from 'react'
-import { Row, Col } from 'react-bootstrap'
-import Product from '../components/Product'
-import products from '../products'
+import React from 'react';
+import { Row, Col } from 'react-bootstrap';
+import Product from '../components/Product';
+import products from '../products';
 
 const HomeScreen = () => {
   return (
@@ -194,10 +194,10 @@ const HomeScreen = () => {
         ))}
       </Row>
     </>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;
 ```
 
 ### Main app component
@@ -205,11 +205,11 @@ export default HomeScreen
 1. After creating these components, make sure everything is imported in the right places and everything is working as expected
 
 ```javascript
-import React from 'react'
-import { Container } from 'react-bootstrap'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import HomeScreen from './screens/HomeScreen'
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import HomeScreen from './screens/HomeScreen';
 
 function App() {
   return (
@@ -222,10 +222,10 @@ function App() {
       </main>
       <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
 ```
 
 ### Rating component
@@ -238,8 +238,8 @@ export default App
 1. Add proptypes to help with type checking
 
 ```javascript
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Rating = ({ value, text, color }) => {
   return (
@@ -306,20 +306,20 @@ const Rating = ({ value, text, color }) => {
       </span>
       <span className='ml-1'>{text ? text : ''}</span>
     </div>
-  )
-}
+  );
+};
 
 Rating.defaultProps = {
   color: '#f8e825',
-}
+};
 
 Rating.propTypes = {
   value: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   color: PropTypes.string,
-}
+};
 
-export default Rating
+export default Rating;
 ```
 
 ### Update Product component
@@ -328,20 +328,20 @@ export default Rating
 
 ```javascript
 // original card text
-;<Card.Text>
+<Card.Text>
   <div className='my-3'>
     {product.rating} from {product.numReviews} reviews
   </div>
-</Card.Text>
+</Card.Text>;
 
 // NEW
 // import the rating component
-import Rating from '../components/Rating '
+import Rating from '../components/Rating ';
 
 // add the rating component
-;<Card.Text>
+<Card.Text>
   <Rating value={product.rating} text={`${product.numReviews} reviews`} />
-</Card.Text>
+</Card.Text>;
 ```
 
 ## Creating React Routing
@@ -351,12 +351,12 @@ import Rating from '../components/Rating '
 1. Add the router to the **app.js** file
 
 ```javascript
-import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Container } from 'react-bootstrap'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import HomeScreen from './screens/HomeScreen'
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import HomeScreen from './screens/HomeScreen';
 
 function App() {
   return (
@@ -369,10 +369,10 @@ function App() {
       </main>
       <Footer />
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
 ```
 
 ### Update Product component
@@ -380,10 +380,10 @@ export default App
 1. Update the product component to use Link instead of a tags
 
 ```javascript
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Card } from 'react-bootstrap'
-import Rating from './Rating'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
+import Rating from './Rating';
 
 const Product = ({ product }) => {
   return (
@@ -408,10 +408,10 @@ const Product = ({ product }) => {
         <Card.Text as='h3'>${product.price}</Card.Text>
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;
 ```
 
 ### Update Header component
@@ -419,9 +419,9 @@ export default Product
 1. Update the header component to use LinkContainer instead of a tags
 
 ```javascript
-import React from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import React from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 
 const Header = () => {
   return (
@@ -448,10 +448,10 @@ const Header = () => {
         </Container>
       </Navbar>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
 ```
 
 ### Update Main App component
@@ -459,13 +459,13 @@ export default Header
 1. Create a second view for the products details
 
 ```javascript
-import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Container } from 'react-bootstrap'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import HomeScreen from './screens/HomeScreen'
-import ProductScreen from './screens/ProductScreen'
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import HomeScreen from './screens/HomeScreen';
+import ProductScreen from './screens/ProductScreen';
 
 function App() {
   return (
@@ -479,10 +479,10 @@ function App() {
       </main>
       <Footer />
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
 ```
 
 ### Create Product Details component
@@ -491,14 +491,14 @@ export default App
 1. Using a simple json file to start, use the **match** prop to match the url parameters
 
 ```javascript
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
-import Rating from '../components/Rating'
-import products from '../products'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
+import Rating from '../components/Rating';
+import products from '../products';
 
 const ProductScreen = ({ match }) => {
-  const product = products.find((p) => p._id === match.params.id)
+  const product = products.find((p) => p._id === match.params.id);
 
   return (
     <>
@@ -557,10 +557,10 @@ const ProductScreen = ({ match }) => {
         </Col>
       </Row>
     </>
-  )
-}
+  );
+};
 
-export default ProductScreen
+export default ProductScreen;
 ```
 
 # After basic server was created
@@ -578,34 +578,34 @@ export default ProductScreen
 1. Add useState and useEffect imports
 
 ```javascript
-import React, { useState, useEffect } from 'react'
-import products from '../products'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import products from '../products';
+import axios from 'axios';
 ```
 
 ### HomeScreen component changes
 
 ```javascript
 // bring in useState and useEffect
-import React, { useState, useEffect } from 'react'
-import { Row, Col } from 'react-bootstrap'
-import Product from '../components/Product'
+import React, { useState, useEffect } from 'react';
+import { Row, Col } from 'react-bootstrap';
+import Product from '../components/Product';
 // import axios
-import axios from 'axios'
+import axios from 'axios';
 
 const HomeScreen = () => {
   // set products state
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
 
   // getting the data from the server using useEffect hook
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data } = await axios.get('/api/products')
+      const { data } = await axios.get('/api/products');
 
-      setProducts(data)
-    }
-    fetchProducts()
-  }, [])
+      setProducts(data);
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <>
@@ -618,36 +618,36 @@ const HomeScreen = () => {
         ))}
       </Row>
     </>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;
 ```
 
 ### ProductScreen component changes
 
 ```javascript
 // bring in useState and useEffect
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
-import Rating from '../components/Rating'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
+import Rating from '../components/Rating';
 // import axios
-import axios from 'axios'
+import axios from 'axios';
 
 const ProductScreen = ({ match }) => {
   // set individual product state
-  const [product, setProduct] = useState({})
+  const [product, setProduct] = useState({});
 
   // getting the data from the server using useEffect hook
   useEffect(() => {
     const fetchProduct = async () => {
-      const { data } = await axios.get(`/api/products/${match.params.id}`)
+      const { data } = await axios.get(`/api/products/${match.params.id}`);
 
-      setProduct(data)
-    }
-    fetchProduct()
-  }, [])
+      setProduct(data);
+    };
+    fetchProduct();
+  }, []);
 
   return (
     <>
@@ -706,8 +706,8 @@ const ProductScreen = ({ match }) => {
         </Col>
       </Row>
     </>
-  )
-}
+  );
+};
 
-export default ProductScreen
+export default ProductScreen;
 ```
